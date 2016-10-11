@@ -8,9 +8,11 @@ echo "----------------------------------------"
 
 export_env_dir() {
   env_dir=$1
-  
+
   if [ -d "$env_dir" ]; then
     if [ -s "$env_dir/METEOR_SETTINGS" ]; then
+      echo $(cat $env_dir/METEOR_SETTINGS | sed -e "s/\"\(deploy_version\)\"[[:space:]]*:[[:space:]]*\"[^\"]*\"/\"\1\": \"${SOURCE_VERSION}\"/")
+      echo "----------------------------------------"
       export "METEOR_SETTINGS=$(cat $env_dir/METEOR_SETTINGS | sed -e "s/\"\(deploy_version\)\"[[:space:]]*:[[:space:]]*\"[^\"]*\"/\"\1\": \"${SOURCE_VERSION}\"/")"
     fi
   fi
