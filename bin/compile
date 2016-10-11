@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# set -x
+
+echo "-----> Updating METEOR_SETTINGS variable"
+
+DEPLOY_VERSION=$(date +%Y%m%d%H%M%S)
+
+METEOR_SETTINGS=$(heroku config:get METEOR_SETTINGS | sed -e "s/\"\(deploy_version\)\"[[:space:]]*:[[:space:]]*\"[^\"]*\"/\"\1\": \"${DEPLOY_VERSION}\"/")
+heroku config:set METEOR_SETTINGS_2=$METEOR_SETTINGS
+
+# METEOR_SETTINGS=$(cat settings.json | sed -e "s/\"\(deploy_version\)\"[[:space:]]*:[[:space:]]*\"[^\"]*\"/\"\1\": \"${DEPLOY_VERSION}\"/")
+
+# echo $METEOR_SETTINGS
